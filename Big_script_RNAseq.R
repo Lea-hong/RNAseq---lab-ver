@@ -1,3 +1,4 @@
+setwd('H:/Desktop/PH data analysis')
 pheno.all <- read.csv(file = "H:/Desktop/PH data analysis/180614 - pheno all with metabolites and diagnostic genes.csv", row.names = 1)
 
 # Read in with tximport ---------------------------------------------------
@@ -7,20 +8,20 @@ source('H:/Desktop/PH data analysis/tximport/helper.R')
 source('H:/Desktop/PH data analysis/tximport/infReps.R')
 source('H:/Desktop/PH data analysis/tximport/summarizeToGene.R')
 
-samples=read.table(file = "../rnaseq_samples.txt")[,1]
-samples_trial=read.table(file = "../rnaseq_trial_samples_short.txt")[,1]
+samples=read.table(file = "rnaseq_samples.txt")[,1]
+samples_trial=read.table(file = "rnaseq_trial_samples_short.txt")[,1]
 
 files=paste0(samples,"/quant.sf")
 files_trial=paste0(samples_trial,"/quant.sf")
 
-quant=read.table(file = files_trial[1], header = T
+quant = read.table(file = files_trial[1], header = T
                  #,nrows = 100
                  )
 quant$Name=as.character(quant$Name)
 transcripts=do.call(rbind,strsplit(quant$Name,split = "[|]"))
 transcripts=as.data.frame(transcripts)
 transcripts$TXNAME=quant$Name
-head(transcripts)
+
 colnames(transcripts)=c("TranscriptID","GeneID","OTTGeneID","OTTTranscriptID","TranscriptName","GeneName","Length","Transcript type","TXNAME")
 tx2gene=transcripts[,c("TXNAME","GeneName")]
 tx2gene$GeneName=as.character(tx2gene$GeneName)
@@ -31,16 +32,12 @@ length(unique(transcripts$GeneName))
 
 transcripts$GeneID2=do.call(rbind,strsplit(as.character(transcripts$GeneID),split="[.]"))[,1]
 
-
 library(readr)
-head(tx2gene)
 
 all_files=c(files,files_trial)
 samples_short=do.call(rbind,strsplit(c(files,files_trial), split = "_S"))[,1]
 names(all_files)<-samples_short
 txi=tximport(all_files, type = "salmon", tx2gene = tx2gene)
-
-names(txi$abundance)
 
 # Sample details ----------------------------------------------------------
 salmon_samples=colnames(all.tpm)
@@ -117,7 +114,7 @@ hist(as.numeric(transcripts.salmon2$max.detected.controls.PAH),
 # Save image of workspace up to this point --------------------------------
 
 
-save.image("D:/RNAseq/salmon.gencode28/190608 - salmon RNAseq files up to edgeR.RData")
+save.image("H:/Desktop/PH data analysis/190608 - salmon RNAseq files up to edgeR.RData")
 # edgeR -------------------------------------------------------------------
 
 library(edgeR)
