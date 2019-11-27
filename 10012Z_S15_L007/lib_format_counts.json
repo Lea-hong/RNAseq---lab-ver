@@ -1,0 +1,21 @@
+{
+    "read_files": "( /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180119_K00345_0029_AHMJKJBBXX_10012Z_S15_L007_R1_001.fastq.gz, /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180119_K00345_0029_AHMJKJBBXX_10012Z_S15_L007_R2_001.fastq.gz ), ( /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180119_K00345_0030_BHMKY7BBXX_10012Z_S15_L007_R1_001.fastq.gz, /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180119_K00345_0030_BHMKY7BBXX_10012Z_S15_L007_R2_001.fastq.gz ), ( /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180126_K00345_0031_AHMJL2BBXX_10012Z_S15_L007_R1_001.fastq.gz, /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180126_K00345_0031_AHMJL2BBXX_10012Z_S15_L007_R2_001.fastq.gz ), ( /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180126_K00345_0032_BHMJNWBBXX_10012Z_S15_L007_R1_001.fastq.gz, /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180126_K00345_0032_BHMJNWBBXX_10012Z_S15_L007_R2_001.fastq.gz ), ( /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180130_K00345_0033_AHMJKCBBXX_10012Z_S15_L007_R1_001.fastq.gz, /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180130_K00345_0033_AHMJKCBBXX_10012Z_S15_L007_R2_001.fastq.gz ), ( /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180130_K00345_0034_BHNWG7BBXX_10012Z_S15_L007_R1_001.fastq.gz, /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180130_K00345_0034_BHNWG7BBXX_10012Z_S15_L007_R2_001.fastq.gz ), ( /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180202_K00345_0035_AHMJG2BBXX_10012Z_S15_L007_R1_001.fastq.gz, /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180202_K00345_0035_AHMJG2BBXX_10012Z_S15_L007_R2_001.fastq.gz ), ( /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180202_K00345_0036_BHMJJ2BBXX_10012Z_S15_L007_R1_001.fastq.gz, /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180202_K00345_0036_BHMJJ2BBXX_10012Z_S15_L007_R2_001.fastq.gz ), ( /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180112_K00345_0028_BHMJJKBBXX_10012Z_S15_L007_R1_001.fastq.gz, /rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180112_K00345_0028_BHMJJKBBXX_10012Z_S15_L007_R2_001.fastq.gz )",
+    "expected_format": "ISR",
+    "compatible_fragment_ratio": 1.0,
+    "num_compatible_fragments": 32471725,
+    "num_assigned_fragments": 32471725,
+    "num_frags_with_consistent_mappings": 30732063,
+    "num_frags_with_inconsistent_or_orphan_mappings": 1739946,
+    "MSF": 0,
+    "OSF": 0,
+    "ISF": 383,
+    "MSR": 0,
+    "OSR": 0,
+    "ISR": 30732063,
+    "SF": 742927,
+    "SR": 996636,
+    "MU": 0,
+    "OU": 0,
+    "IU": 0,
+    "U": 0
+}

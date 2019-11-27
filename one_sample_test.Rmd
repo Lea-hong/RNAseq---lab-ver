@@ -1,0 +1,218 @@
+---
+title: "Test run on sample 1000PU_S21_L004"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+***
+This is an adaptation of the original script used for RNAseq analysis. Adapted to test run on single sample  
+Tested sample include '1000PU_S21_L004'.
+
+***
+
+### 1. Using Salmon
+
+***
+
+Patient samples are collected and Raw RNA sequencing data are generated and stored in the Imperial College HPC remote folder export111/work.crhodes/RNAseq/data/Alldata as FASTQ files. Each sample is sequences as paired-end RNAseq, running on 9 lanes for technical replicates. Genome reference used is the Homo sapien GENCODE index version 28 stored in home/crhodes/RNAseq/genome and output stored in project/satin/chris/analysis/salmon.gencode28. Task defined to run in steps of one 465 times to cover all patient samples. Sample names stored in /export131/home/crhodes/RNAseq/reads/rnseq_samples.txt to be able to extract sample names.  
+To quantify reads against our index, salmon --quant command points to the reference genome. Final transcript quantification results containing estimated counts per transcript is outputted into the output folder.  
+The script below is written as unix commands and run on the college HPC using PuTTY.The following PBS commands specify:  
+* walltime specifies the limit of time the job should run on the HPC
+* l select=1:ncpus=16:mem=60gb specifies the requirement of 16 CPUs and a 60gb memory for job
+* -M specifies email to notify for job completion
+* 1-465:1 specifies to run in steps of one 465 times  
+
+_The following code chunk is in unix and not R:_  
+```{r, eval = FALSE}
+#!/bin/bash
+
+#PBS -j oe
+#PBS -l walltime=24:00:00
+#PBS -l select=1:ncpus=16:mem=60gb
+#PBS -m a
+#PBS -M c.rhodes07@imperial.ac.uk
+#PBS -N salmon
+#PBS -J 1-465:1
+
+Genome=/home/crhodes/RNAseq/genome/Homo_sapiens.gencode.v28_index
+Output=/project/satin/chris/analysis/salmon.gencode28
+task=$PBS_ARRAY_INDEX
+variable=$(cut /export131/home/crhodes/RNAseq/reads/rnseq_samples.txt --fields=1 | sed -n ${task}'p')
+
+fastq1_R1=/export111/work/crhodes/RNAseq/data/AllData/180119_K00345_0029_AHMJKJBBXX_${variable}_R1_001.fastq.gz
+fastq2_R1=/export111/work/crhodes/RNAseq/data/AllData/180119_K00345_0030_BHMKY7BBXX_${variable}_R1_001.fastq.gz
+fastq3_R1=/export111/work/crhodes/RNAseq/data/AllData/180126_K00345_0031_AHMJL2BBXX_${variable}_R1_001.fastq.gz
+fastq4_R1=/export111/work/crhodes/RNAseq/data/AllData/180126_K00345_0032_BHMJNWBBXX_${variable}_R1_001.fastq.gz
+fastq5_R1=/export111/work/crhodes/RNAseq/data/AllData/180130_K00345_0033_AHMJKCBBXX_${variable}_R1_001.fastq.gz
+fastq6_R1=/export111/work/crhodes/RNAseq/data/AllData/180130_K00345_0034_BHNWG7BBXX_${variable}_R1_001.fastq.gz
+fastq7_R1=/export111/work/crhodes/RNAseq/data/AllData/180202_K00345_0035_AHMJG2BBXX_${variable}_R1_001.fastq.gz
+fastq8_R1=/export111/work/crhodes/RNAseq/data/AllData/180202_K00345_0036_BHMJJ2BBXX_${variable}_R1_001.fastq.gz
+fastq9_R1=/export111/work/crhodes/RNAseq/data/AllData/180112_K00345_0028_BHMJJKBBXX_${variable}_R1_001.fastq.gz
+
+fastq1_R2=/export111/work/crhodes/RNAseq/data/AllData/180119_K00345_0029_AHMJKJBBXX_${variable}_R2_001.fastq.gz
+fastq2_R2=/export111/work/crhodes/RNAseq/data/AllData/180119_K00345_0030_BHMKY7BBXX_${variable}_R2_001.fastq.gz
+fastq3_R2=/export111/work/crhodes/RNAseq/data/AllData/180126_K00345_0031_AHMJL2BBXX_${variable}_R2_001.fastq.gz
+fastq4_R2=/export111/work/crhodes/RNAseq/data/AllData/180126_K00345_0032_BHMJNWBBXX_${variable}_R2_001.fastq.gz
+fastq5_R2=/export111/work/crhodes/RNAseq/data/AllData/180130_K00345_0033_AHMJKCBBXX_${variable}_R2_001.fastq.gz
+fastq6_R2=/export111/work/crhodes/RNAseq/data/AllData/180130_K00345_0034_BHNWG7BBXX_${variable}_R2_001.fastq.gz
+fastq7_R2=/export111/work/crhodes/RNAseq/data/AllData/180202_K00345_0035_AHMJG2BBXX_${variable}_R2_001.fastq.gz
+fastq8_R2=/export111/work/crhodes/RNAseq/data/AllData/180202_K00345_0036_BHMJJ2BBXX_${variable}_R2_001.fastq.gz
+fastq9_R2=/export111/work/crhodes/RNAseq/data/AllData/180112_K00345_0028_BHMJJKBBXX_${variable}_R2_001.fastq.gz
+
+cd $TMPDIR
+
+~/Salmon-latest_linux_x86_64/bin/salmon quant -i $Genome \
+-l A \
+--seqBias \
+--gcBias \
+--allowOrphans \
+-p 8 \
+-1 $fastq1_R1 $fastq2_R1 $fastq3_R1 $fastq4_R1 $fastq5_R1 $fastq6_R1 $fastq7_R1 $fastq8_R1 $fastq9_R1 \
+-2 $fastq1_R2 $fastq2_R2 $fastq3_R2 $fastq4_R2 $fastq5_R2 $fastq6_R2 $fastq7_R2 $fastq8_R2 $fastq9_R2 \
+-o $variable
+
+cp -r $variable $Output
+
+```
+
+_adapted script_:  
+* Changed #PBS =J and -M
+* Changed path for Genome and output
+* Changed path for fastq files
+* Re-indexed reference genome using Salmon --quant  s
+```{r, eval = FALSE}
+#!/bin/bash
+
+#PBS -j oe
+#PBS -l walltime=24:00:00
+#PBS -l select=1:ncpus=16:mem=60gb
+#PBS -m a
+#PBS -M lh417@ic.ac.uk
+#PBS -N salmon
+#PBS -J 1-465:465
+
+Genome=/rdsgpfs/general/user/crhodes/home/RNAseq/genome/Homo_sapiens.gencode.v28_index2
+Output=/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/users/lh417/salmon.gencode28
+task=1
+variable=$(cut /export131/home/crhodes/RNAseq/reads/rnaseq_samples.txt --fields=1 | sed -n ${task}'p')
+
+fastq1_R1=/export111/work/crhodes/RNAseq/data/AllData/180119_K00345_0029_AHMJKJBBXX_${variable}_R1_001.fastq.gz
+fastq2_R1=/export111/work/crhodes/RNAseq/data/AllData/180119_K00345_0030_BHMKY7BBXX_${variable}_R1_001.fastq.gz
+fastq3_R1=/export111/work/crhodes/RNAseq/data/AllData/180126_K00345_0031_AHMJL2BBXX_${variable}_R1_001.fastq.gz
+fastq4_R1=/export111/work/crhodes/RNAseq/data/AllData/180126_K00345_0032_BHMJNWBBXX_${variable}_R1_001.fastq.gz
+fastq5_R1=/export111/work/crhodes/RNAseq/data/AllData/180130_K00345_0033_AHMJKCBBXX_${variable}_R1_001.fastq.gz
+fastq6_R1=/export111/work/crhodes/RNAseq/data/AllData/180130_K00345_0034_BHNWG7BBXX_${variable}_R1_001.fastq.gz
+fastq7_R1=/export111/work/crhodes/RNAseq/data/AllData/180202_K00345_0035_AHMJG2BBXX_${variable}_R1_001.fastq.gz
+fastq8_R1=/export111/work/crhodes/RNAseq/data/AllData/180202_K00345_0036_BHMJJ2BBXX_${variable}_R1_001.fastq.gz
+fastq9_R1=/export111/work/crhodes/RNAseq/data/AllData/180112_K00345_0028_BHMJJKBBXX_${variable}_R1_001.fastq.gz
+
+fastq1_R2=/export111/work/crhodes/RNAseq/data/AllData/180119_K00345_0029_AHMJKJBBXX_${variable}_R2_001.fastq.gz
+fastq2_R2=/export111/work/crhodes/RNAseq/data/AllData/180119_K00345_0030_BHMKY7BBXX_${variable}_R2_001.fastq.gz
+fastq3_R2=/export111/work/crhodes/RNAseq/data/AllData/180126_K00345_0031_AHMJL2BBXX_${variable}_R2_001.fastq.gz
+fastq4_R2=/export111/work/crhodes/RNAseq/data/AllData/180126_K00345_0032_BHMJNWBBXX_${variable}_R2_001.fastq.gz
+fastq5_R2=/export111/work/crhodes/RNAseq/data/AllData/180130_K00345_0033_AHMJKCBBXX_${variable}_R2_001.fastq.gz
+fastq6_R2=/export111/work/crhodes/RNAseq/data/AllData/180130_K00345_0034_BHNWG7BBXX_${variable}_R2_001.fastq.gz
+fastq7_R2=/export111/work/crhodes/RNAseq/data/AllData/180202_K00345_0035_AHMJG2BBXX_${variable}_R2_001.fastq.gz
+fastq8_R2=/export111/work/crhodes/RNAseq/data/AllData/180202_K00345_0036_BHMJJ2BBXX_${variable}_R2_001.fastq.gz
+fastq9_R2=/export111/work/crhodes/RNAseq/data/AllData/180112_K00345_0028_BHMJJKBBXX_${variable}_R2_001.fastq.gz
+
+cd $TMPDIR
+
+/rdsgpfs/general/user/crhodes/home/salmon-0.10.0_linux_x86_64/bin/salmon quant -i $Genome \
+-l A \
+--seqBias \
+--gcBias \
+--allowOrphans \
+-p 8 \
+-1 $fastq1_R1 $fastq2_R1 $fastq3_R1 $fastq4_R1 $fastq5_R1 $fastq6_R1 $fastq7_R1 $fastq8_R1 $fastq9_R1 \
+-2 $fastq1_R2 $fastq2_R2 $fastq3_R2 $fastq4_R2 $fastq5_R2 $fastq6_R2 $fastq7_R2 $fastq8_R2 $fastq9_R2 \
+-o $variable
+
+cp -r $variable $Output
+
+```
+
+## 2. TXimport
+
+Output of Salmon now located in directory /PH data analysis/1000PU_S21_L004 as a quant.sf file. The next step is to import it using TXimport into R as matrices for downstream applications.
+
+Setting up the working directory and import in tximport codes (Computer in labs):  
+```{r, echo = FALSE}
+# Set working directory
+setwd('H:/Desktop/PH data analysis')
+```
+
+```{r, echo = FALSE}
+# Read in TXimport source codes
+source('H:/Desktop/PH data analysis/tximport/tximport.R')
+source('H:/Desktop/PH data analysis/tximport/helper.R')
+source('H:/Desktop/PH data analysis/tximport/infReps.R')
+source('H:/Desktop/PH data analysis/tximport/summarizeToGene.R')
+```
+
+Here we read in the quant.sf file generated by Salmon:  
+```{r, echo = FALSE}
+# Read in quant.sf file into quant dataframe
+file_sample = '1000PU_S21_L004/quant.sf'
+quant = read.table(file = file_sample[1], header = TRUE)
+```
+
+Generating an index to associate Gene ID and transcript ID:  
+```{r, echo = FALSE}
+# Create dataframe 'transcipts', intermediate for tx2gene 
+quant$Name=as.character(quant$Name)
+transcripts=do.call(rbind,strsplit(quant$Name,split = "[|]"))
+transcripts=as.data.frame(transcripts)
+transcripts$TXNAME=quant$Name
+colnames(transcripts)=c("TranscriptID","GeneID","OTTGeneID","OTTTranscriptID","TranscriptName","GeneName","Length","Transcript type","TXNAME")
+```
+
+```{r, echo = FALSE}
+# construct our tx2gene dataframe to associate transcript ID to Gene ID
+tx2gene=transcripts[,c("TXNAME","GeneName")]
+tx2gene$GeneName=as.character(tx2gene$GeneName)
+tx2gene$GeneName[is.na(tx2gene$GeneName)]<-"Other"
+transcripts$GeneID2=do.call(rbind,strsplit(as.character(transcripts$GeneID),split="[.]"))[,1]
+```
+
+```{r, echo = FALSE}
+# Read package readr for easy manipulation of datasets
+library(readr)
+```
+
+TXIMPORT:  
+```{r, echo = FALSE}
+samples_short=do.call(rbind,strsplit(file_sample, split = "_S"))[,1]
+names(file_sample)<-samples_short
+# TXImport into matrices (list)
+txi_1000PU_S21_L004 = tximport(file_sample, type = "salmon", tx2gene = tx2gene)
+```
+
+## Verification of TXImport results with previous results:  
+Verification of results is done through comparing txi_1000PU_S21_l004 obtained through above script with previous results store in RData frame 'txi and transcripts'.  
+First loading 'txi_and_transcripts.RData# back into R:  
+```{r, echo = FALSE}
+#load RData
+previous_result <- get(load('~/Desktop/PH data analysis/txi and transcripts.RData'))
+# previous_result and txi_1000PU_S21_L004 both contain abundance, counts and length, visualise
+summary(previous_result)
+summary(txi_1000PU_S21_L004)
+```
+
+Comparing the first 10 columns:  
+```{r}
+previous_result$abundance[1:10,1]
+txi_1000PU_S21_L004$abundance[1:10,1]
+```
+The results obtained for 1000PU_S21_L004 did not match previous results, possibly due to re-indexing.  
+For verification purposes, all above procedures were performed again for 
+
+TEMPORARY CHUNK  
+```{r, echo = FALSE}
+plot(txi_1000PU_S21_L004$abundance,previous_result$abundance[,1], log = 'xy')
+cor.test(txi_1000PU_S21_L004$abundance,previous_result$abundance[,2],method = "s")
+abline(a=0,b=1)
+```

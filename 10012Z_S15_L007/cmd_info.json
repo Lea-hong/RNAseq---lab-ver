@@ -1,0 +1,33 @@
+{
+    "salmon_version": "0.10.0",
+    "index": "/rdsgpfs/general/user/crhodes/home/RNAseq/genome/Homo_sapiens.gencode.v28_index2",
+    "libType": "A",
+    "seqBias": [],
+    "gcBias": [],
+    "allowOrphansFMD": [],
+    "threads": "8",
+    "mates1": [
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180119_K00345_0029_AHMJKJBBXX_10012Z_S15_L007_R1_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180119_K00345_0030_BHMKY7BBXX_10012Z_S15_L007_R1_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180126_K00345_0031_AHMJL2BBXX_10012Z_S15_L007_R1_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180126_K00345_0032_BHMJNWBBXX_10012Z_S15_L007_R1_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180130_K00345_0033_AHMJKCBBXX_10012Z_S15_L007_R1_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180130_K00345_0034_BHNWG7BBXX_10012Z_S15_L007_R1_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180202_K00345_0035_AHMJG2BBXX_10012Z_S15_L007_R1_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180202_K00345_0036_BHMJJ2BBXX_10012Z_S15_L007_R1_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180112_K00345_0028_BHMJJKBBXX_10012Z_S15_L007_R1_001.fastq.gz"
+    ],
+    "mates2": [
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180119_K00345_0029_AHMJKJBBXX_10012Z_S15_L007_R2_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180119_K00345_0030_BHMKY7BBXX_10012Z_S15_L007_R2_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180126_K00345_0031_AHMJL2BBXX_10012Z_S15_L007_R2_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180126_K00345_0032_BHMJNWBBXX_10012Z_S15_L007_R2_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180130_K00345_0033_AHMJKCBBXX_10012Z_S15_L007_R2_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180130_K00345_0034_BHNWG7BBXX_10012Z_S15_L007_R2_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180202_K00345_0035_AHMJG2BBXX_10012Z_S15_L007_R2_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180202_K00345_0036_BHMJJ2BBXX_10012Z_S15_L007_R2_001.fastq.gz",
+        "/rdsgpfs/general/project/eph-prokopenko-lab-satin/live/data/PAHrnaseq/run1/data/AllData/180112_K00345_0028_BHMJJKBBXX_10012Z_S15_L007_R2_001.fastq.gz"
+    ],
+    "output": "10012Z_S15_L007",
+    "auxDir": "aux_info"
+}
